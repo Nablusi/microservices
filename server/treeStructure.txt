@@ -1,0 +1,35 @@
+server/
+├── config/              # Configuration files (e.g., DB, env, constants)
+│   ├── db.js
+│   └── env.js
+│
+├── controllers/         # Logic for handling requests (business logic)
+│   ├── authController.js
+│   └── userController.js
+│
+├── models/              # Database models (Mongoose or Sequelize)
+│   ├── User.js
+│   └── Token.js
+│
+├── routes/              # API route definitions
+│   ├── authRoutes.js
+│   └── userRoutes.js
+│
+├── middlewares/         # Custom middleware (auth, error handler, etc.)
+│   ├── authMiddleware.js
+│   └── errorHandler.js
+│
+├── utils/               # Helper functions (e.g., token generators, validators)
+│   ├── generateToken.js
+│   └── hashPassword.js
+│
+├── services/            # Optional: for business logic abstraction (e.g., emailService)
+│   └── emailService.js
+│
+├── shared/              # Code shared with the front end (optional)
+│   └── constants.js
+│
+├── .env                 # Environment variables
+├── server.js            # Entry point
+├── app.js               # Express app setup
+└── package.json
