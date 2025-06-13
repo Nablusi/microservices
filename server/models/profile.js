@@ -1,11 +1,10 @@
-// models/NormalProfile.js
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('./database');
 
 const NormalProfile = sequelize.define('NormalProfile', {
-  phone: { type: DataTypes.STRING, allowNull: false },
-  address: { type: DataTypes.STRING, allowNull: false },
-  userId: { type: DataTypes.INTEGER, allowNull: false } // Foreign key
+  phone: { type: DataTypes.STRING, allowNull: true},
+  address: { type: DataTypes.STRING, allowNull: true },
+  userId: { type: DataTypes.INTEGER, allowNull: true } 
 }, {
   tableName: 'normal_profiles'
 });

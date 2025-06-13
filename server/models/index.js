@@ -25,6 +25,10 @@ Order.hasMany(OrderItem, { foreignKey: 'orderId' });
 Food.hasMany(OrderItem, { foreignKey: 'foodId' });
 User.hasMany(Order, { foreignKey: 'userId' });
 
+
+User.hasOne(NormalProfile, { foreignKey: 'userId' });
+User.hasOne(RestaurantProfile, { foreignKey: 'userId' });
+
 module.exports = {
   User,
   NormalProfile,
