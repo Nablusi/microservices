@@ -7,7 +7,7 @@ const Food = sequelize.define(
     {
 
         userId: { type: DataTypes.INTEGER, allowNull: false },
-        food_name: {
+        foodName: {
             type: DataTypes.STRING,
         },
         description: {
