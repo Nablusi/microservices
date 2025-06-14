@@ -53,12 +53,12 @@ const addItemToTheCart = async (req, res) => {
 
         let cartItem;
         if (existingCartItem) {
-            
+
             existingCartItem.quantity += quantity;
             await existingCartItem.save();
             cartItem = existingCartItem;
         } else {
-           
+
             cartItem = await CartItems.create({
                 foodId,
                 cartId,
@@ -85,10 +85,10 @@ const getCart = async (req, res) => {
         }
 
         const cart = await Cart.findOne({
-            where: { userId }, 
+            where: { userId },
             include: [{
                 model: CartItems,
-                include: [Food] 
+                include: [Food]
             }]
         });
 
@@ -142,10 +142,62 @@ const editCartItem = async (req, res) => {
     }
 };
 
+const deleteCartItem = async (req, res) => {
+    const userId = req.currentUser.id;
+    const { cartId, foodId } = req.params;
+
+    try {
+        const cart = await Cart.findByPk(cartId);
+        if (!cart || cart.userId !== userId) {
+            return res.status(403).json({ message: "Unauthorized cart access" });
+        }
+
+        const item = await CartItems.findOne({
+            where: { cartId, foodId }
+        });
+
+        if (!item) {
+            return res.status(404).json({ message: "Cart item not found" });
+        }
+
+        await item.destroy();
+
+        res.status(200).json({ message: "Cart item deleted successfully" });
+    } catch (e) {
+        console.error("Delete Cart Item Error:", e);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+const deleteCart = async (req, res) => {
+    const userId = req.currentUser.id;
+    const { cartId } = req.params;
+
+    try {
+        const cart = await Cart.findByPk(cartId);
+        if (!cart || cart.userId !== userId) {
+            return res.status(403).json({ message: "Unauthorized cart access" });
+        }
+
+        await CartItems.destroy({ where: { cartId } }); // Remove all items first
+        await cart.destroy(); // Then remove the cart itself
+
+        res.status(200).json({ message: "Cart deleted successfully" });
+    } catch (e) {
+        console.error("Delete Cart Error:", e);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+
+
+
 
 module.exports = {
     createCartForUser,
     addItemToTheCart,
     getCart,
-     editCartItem,
+    editCartItem,
+    deleteCartItem,  
+    deleteCart       
 }

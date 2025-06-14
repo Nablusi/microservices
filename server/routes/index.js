@@ -10,6 +10,9 @@ const { foodValidation } = require("../middleware/foodValidation");
 const foodController = require('../controllers/foodController');
 const { cartValidation } = require('../middleware/cartValidation');
 const cartController = require('../controllers/cartController');
+const { orderValidation } = require('../middleware/validationOrder');
+const orderController = require('../controllers/orderController');
+const { orderItemValidation } = require('../middleware/orderItemValidation')
 
 
 
@@ -28,9 +31,18 @@ router.post('/preferences', isLoggedin, userPreferencesController.assignPreferen
 router.post('/addfood', isLoggedin, foodValidation, validate, foodController.createFood)
 router.get('/viewfood/:id', foodController.getFoodThatTheRestaurantHave);
 router.post('/cart', isLoggedin, cartController.createCartForUser);
-router.post('/cart/add-item', isLoggedin, cartValidation, validate, cartController.addItemToTheCart); 
+router.post('/cart/add-item', isLoggedin, cartValidation, validate, cartController.addItemToTheCart);
 router.get('/cart', isLoggedin, cartController.getCart);
 router.put('/cart/edit-item', isLoggedin, cartController.editCartItem);
+router.post('/order', isLoggedin, orderValidation, validate, orderController.createOrder);
+router.post('/addorderitem', isLoggedin, orderItemValidation, validate, orderController.addOrderItems);
+router.get('/order', isLoggedin, orderController.getOrder);
+router.put('/editorderitem', isLoggedin, orderController.editOrderItem)
+router.put('/editorderstatus', isLoggedin, orderController.editOrderStatus)
+router.delete('/order/:orderId', isLoggedin, orderController.deleteOrder);
+router.delete('/:orderId/items/:foodId', isLoggedin, orderController.deleteOrderItem);
+router.delete('/:cartId/items/:foodId', isLoggedin, cartController.deleteCartItem);
+router.delete('/cart/:cartId', isLoggedin, cartController.deleteCart);
 
 
 

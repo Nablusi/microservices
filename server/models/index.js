@@ -1,24 +1,24 @@
 const User = require('./user');
-const NormalProfile = require('./profile'); 
+const NormalProfile = require('./profile');
 const RestaurantProfile = require('./restaurantProfile');
-const Preferences = require('./preferences'); 
+const Preferences = require('./preferences');
 const UserPreferences = require('./userPreferences');
 const Food = require('./food');
-const Cart =require('./cart'); 
+const Cart = require('./cart');
 const CartItems = require('./cartItems')
-const Order = require('./order'); 
-const OrderItem = require('./orderItems'); 
+const Order = require('./order');
+const OrderItem = require('./orderItems');
 
 
 User.belongsToMany(Preferences, {
   through: UserPreferences,
   foreignKey: 'userId',
-  otherKey: 'preferencesId' 
+  otherKey: 'preferencesId'
 });
 
 Preferences.belongsToMany(User, {
   through: UserPreferences,
-  foreignKey: 'preferencesId',  
+  foreignKey: 'preferencesId',
   otherKey: 'userId'
 });
 
@@ -42,7 +42,7 @@ module.exports = {
   UserPreferences,
   Food,
   Cart,
-  CartItems, 
-  OrderItem, 
+  CartItems,
+  OrderItem,
   Order,
 };
