@@ -22,6 +22,10 @@ Preferences.belongsToMany(User, {
   otherKey: 'userId'
 });
 
+Cart.hasMany(CartItems, { foreignKey: 'cartId' });
+Food.hasMany(CartItems, { foreignKey: 'foodId' });
+
+
 Order.hasMany(OrderItem, { foreignKey: 'orderId' });
 Food.hasMany(OrderItem, { foreignKey: 'foodId' });
 User.hasMany(Order, { foreignKey: 'userId' });

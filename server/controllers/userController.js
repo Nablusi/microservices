@@ -4,6 +4,7 @@ const jwb = require('jsonwebtoken')
 const User = require('../models/user');
 const NormalProfile = require('../models/profile');
 const RestaurantProfile = require('../models/restaurantProfile');
+const Cart = require('../models/cart');
 
 
 const register = async (req, res) => {
@@ -12,10 +13,6 @@ const register = async (req, res) => {
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
         return res.status(400).json({ message: 'Email already in use' });
-    }
-
-    if (userType === 'restaurant_owner' && (!name || !address || !phone)) {
-        return res.status(400).json({ message: "Missing required restaurant fields" });
     }
 
     try {
@@ -39,11 +36,12 @@ const register = async (req, res) => {
             await RestaurantProfile.create({
                 userId: user.id,
                 phone: phone,
-                restaurant_name: name,   // default values
+                restaurant_name: name,   
                 restaurant_address: address
             });
         }
 
+        await Cart.create({ userId: user.id });
 
         res.status(200).json({
             message: "Your account created successfully"
