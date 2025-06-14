@@ -13,13 +13,14 @@ const OrderItem = require('./orderItems');
 User.belongsToMany(Preferences, {
   through: UserPreferences,
   foreignKey: 'userId',
+  otherKey: 'preferencesId' 
 });
 
 Preferences.belongsToMany(User, {
-  through: 'UserPreferences',
-  foreignKey: 'preferenceId',
+  through: UserPreferences,
+  foreignKey: 'preferencesId',  
+  otherKey: 'userId'
 });
-
 
 Order.hasMany(OrderItem, { foreignKey: 'orderId' });
 Food.hasMany(OrderItem, { foreignKey: 'foodId' });
