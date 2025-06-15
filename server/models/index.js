@@ -29,10 +29,12 @@ Food.hasMany(CartItems, { foreignKey: 'foodId' });
 Order.hasMany(OrderItem, { foreignKey: 'orderId' });
 Food.hasMany(OrderItem, { foreignKey: 'foodId' });
 User.hasMany(Order, { foreignKey: 'userId' });
+User.hasMany(Food, { foreignKey: 'userId', as: 'food' });
 
 
 User.hasOne(NormalProfile, { foreignKey: 'userId' });
 User.hasOne(RestaurantProfile, { foreignKey: 'userId' });
+
 
 module.exports = {
   User,

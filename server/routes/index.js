@@ -13,6 +13,7 @@ const cartController = require('../controllers/cartController');
 const { orderValidation } = require('../middleware/validationOrder');
 const orderController = require('../controllers/orderController');
 const { orderItemValidation } = require('../middleware/orderItemValidation')
+const searchController = require('../controllers/searchController')
 
 
 
@@ -29,7 +30,7 @@ router.put('/profile', isLoggedin, userProfileController.updateMyProfile);
 router.get('/preferences', isLoggedin, userPreferencesController.getPreferences);
 router.post('/preferences', isLoggedin, userPreferencesController.assignPreferences);
 router.post('/addfood', isLoggedin, foodValidation, validate, foodController.createFood)
-router.get('/viewfood/:id', foodController.getFoodThatTheRestaurantHave);
+router.get('/viewfood/:id', foodController.getFoodThatTheRestaurantHave); 
 router.post('/cart', isLoggedin, cartController.createCartForUser);
 router.post('/cart/add-item', isLoggedin, cartValidation, validate, cartController.addItemToTheCart);
 router.get('/cart', isLoggedin, cartController.getCart);
@@ -43,6 +44,7 @@ router.delete('/order/:orderId', isLoggedin, orderController.deleteOrder);
 router.delete('/:orderId/items/:foodId', isLoggedin, orderController.deleteOrderItem);
 router.delete('/:cartId/items/:foodId', isLoggedin, cartController.deleteCartItem);
 router.delete('/cart/:cartId', isLoggedin, cartController.deleteCart);
+router.get('/search', searchController.searchForRestaurant);
 
 
 
