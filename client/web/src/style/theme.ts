@@ -15,8 +15,8 @@ export const theme = {
   colors: {
     primary: '#0070f3',
     secondary: '#ff4081',
-    background: '#F3EEE6',
-    text: '#333',
+    background: '#232229',
+    text: '#F3F2F7',
     hoverText: "#F9632A"
   },
   //   fonts: {
